@@ -1,6 +1,6 @@
 package models
 
-type Xingzuo struct {
+type Dyxingzuo struct {
 	Id          int    `json:"id"`
 	Title       string `json:"title"`
 	Cover       string `json:"cover"`
@@ -12,10 +12,10 @@ type Xingzuo struct {
 	CreateTime  MyTime `json:"create_time" gorm:"autoCreateTime"`
 }
 
-func (Xingzuo) TableName() string {
-	return "xingzuo"
+func (Dyxingzuo) TableName() string {
+	return "dy_xingzuo"
 }
 
-func (x *Xingzuo) AddData() {
+func (x *Dyxingzuo) AddData() {
 	DB.Create(&x)
 }
