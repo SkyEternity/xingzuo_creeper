@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	baseUrl        = "https://www.d1xz.net"
+	dyBaseUrl      = "https://www.d1xz.net"
 	datas          []models.Dyxingzuo
 	classInit      []string
 	classCountList []int
@@ -33,7 +33,7 @@ func WorkDy() {
 
 //获取到全部的分类链接页
 func getClassAll() {
-	err, resp := RequestFn(baseUrl)
+	err, resp := RequestFn(dyBaseUrl)
 	defer resp.Body.Close()
 	if err != nil {
 		log.Fatal(err)
@@ -41,8 +41,8 @@ func getClassAll() {
 	d, _ := goquery.NewDocumentFromReader(resp.Body)
 	d.Find(".constellation li").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Find("a").Attr("href")
-		firstPageUrl := baseUrl + href + "list_1.aspx" //十二星座所有第一页的url
-		getCountRequest(firstPageUrl)                  //再去获取每类的总页数
+		firstPageUrl := dyBaseUrl + href + "list_1.aspx" //十二星座所有第一页的url
+		getCountRequest(firstPageUrl)                    //再去获取每类的总页数
 	})
 }
 func getCountRequest(u string) {
@@ -93,7 +93,7 @@ func detailsWork(childUrl, descs []string) {
 	for i, v := range childUrl {
 		wg.Add(1)
 		limiter <- true
-		go getDetails(baseUrl+v, data, descs[i]) //获取详情页采取并发操作
+		go getDetails(dyBaseUrl+v, data, descs[i]) //获取详情页采取并发操作
 	}
 	wg.Wait()
 }
